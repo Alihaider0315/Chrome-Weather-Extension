@@ -39,6 +39,8 @@ function fetchWeather(city) {
     .then(weatherData => {
       const result = document.getElementById("result");
 
+      // Show the result div and populate it with weather information
+      result.style.display = "block";
       result.innerHTML = `
         <h2>${weatherData.name}</h2>
         <h4 class="weather">${weatherData.weather[0].main}</h4>

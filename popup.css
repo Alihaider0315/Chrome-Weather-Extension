@@ -58,4 +58,35 @@ body {
   button:hover {
     background-color: #0056b3;
   }
-  
+  /* Basic styling for the popup container */
+.container {
+  text-align: center;
+  padding: 20px;
+}
+#result {
+  display: none;
+}
+/* Style for the search input */
+#search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for the buttons */
+#search-btn,
+#get-weather-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#search-btn:hover,
+#get-weather-btn:hover {
+  background-color: #2980b9;
+}

@@ -1,3 +1,36 @@
+let key = "2feb6efb5a9e84164308dcc5732eb53a";
+
+document.addEventListener('DOMContentLoaded', function() {
+  let getWeatherBtn = document.getElementById('get-weather-btn');
+  getWeatherBtn.addEventListener('click', fetchWeatherData);
+});
+
+function fetchWeatherData() {
+  fetch('http://ip-api.com/json')
+    .then(response => response.json())
+    .then(data => {
+      const city = data.city;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(weatherData => {
+          chrome.storage.local.set({ weatherData: weatherData }, () => {
+            console.log("Weather data stored:", weatherData);
+          });
+
+          chrome.tabs.create({ url: chrome.runtime.getURL("weather.html") });
+        })
+        .catch(error => {
+          console.error("An error occurred while fetching weather data:", error);
+        });
+    })
+    .catch(error => {
+      console.error("An error occurred while fetching IP address information:", error);
+    });
+}
+
+// Old Code 
 // let key = "2feb6efb5a9e84164308dcc5732eb53a";
 // document.addEventListener('DOMContentLoaded', function() {
 //   let getWeatherBtn = document.getElementById('get-weather-btn');
@@ -43,36 +76,3 @@
 //     console.error("An error occurred:", error);
 //   }
 // }
-
-let key = "2feb6efb5a9e84164308dcc5732eb53a";
-
-document.addEventListener('DOMContentLoaded', function() {
-  let getWeatherBtn = document.getElementById('get-weather-btn');
-  getWeatherBtn.addEventListener('click', fetchWeatherData);
-});
-
-function fetchWeatherData() {
-  fetch('http://ip-api.com/json')
-    .then(response => response.json())
-    .then(data => {
-      const city = data.city;
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
-
-      fetch(url)
-        .then(response => response.json())
-        .then(weatherData => {
-          chrome.storage.local.set({ weatherData: weatherData }, () => {
-            console.log("Weather data stored:", weatherData);
-          });
-
-          chrome.tabs.create({ url: chrome.runtime.getURL("weather.html") });
-        })
-        .catch(error => {
-          console.error("An error occurred while fetching weather data:", error);
-        });
-    })
-    .catch(error => {
-      console.error("An error occurred while fetching IP address information:", error);
-    });
-}
-

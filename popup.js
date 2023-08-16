@@ -6,29 +6,44 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchWeatherData() {
-  fetch('http://ip-api.com/json')
+  const searchInput = document.getElementById('search-input');
+  const city = searchInput.value.trim();
+
+  if (city === '') {
+    return;
+  }
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
+
+  fetch(url)
     .then(response => response.json())
-    .then(data => {
-      const city = data.city;
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
+    .then(weatherData => {
+      const result = document.getElementById("result");
 
-      fetch(url)
-        .then(response => response.json())
-        .then(weatherData => {
-          chrome.storage.local.set({ weatherData: weatherData }, () => {
-            console.log("Weather data stored:", weatherData);
-          });
-
-          chrome.tabs.create({ url: chrome.runtime.getURL("weather.html") });
-        })
-        .catch(error => {
-          console.error("An error occurred while fetching weather data:", error);
-        });
+      result.innerHTML = `
+        <h2>${weatherData.name}</h2>
+        <h4 class="weather">${weatherData.weather[0].main}</h4>
+        <h4 class="desc">${weatherData.weather[0].description}</h4>
+        <img src="https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png">
+        <h1>${weatherData.main.temp} &#176;</h1>
+        <div class="temp-container">
+            <div>
+                <h4 class="title">min</h4>
+                <h4 class="temp">${weatherData.main.temp_min}&#176;</h4>
+            </div>
+            <div>
+                <h4 class="title">max</h4>
+                <h4 class="temp">${weatherData.main.temp_max}&#176;</h4>
+            </div>
+        </div>
+      `;
     })
     .catch(error => {
-      console.error("An error occurred while fetching IP address information:", error);
+      console.error("An error occurred while fetching weather data:", error);
     });
 }
+
+
 
 // Old Code 
 // let key = "2feb6efb5a9e84164308dcc5732eb53a";

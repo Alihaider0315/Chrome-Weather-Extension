@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "Weather Extension",
+    "version": "1.0",
+    "description": "Get weather information based on geolocation",
+    "permissions": ["activeTab", "storage", "geolocation"],
+    "icons": {
+      "48": "icon.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      }
+    }
+  }
+  

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Information</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f7fafc;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .weather-card {
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+    }
+    .weather-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+  </style>
+  <script src="weather.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="weather-card">
+      <div id="result" class="text-center"></div>
+    </div>
+  </div>
+</body>
+</html>
